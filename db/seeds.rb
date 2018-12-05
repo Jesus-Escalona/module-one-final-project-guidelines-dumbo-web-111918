@@ -1,1 +1,1 @@
-user = User.create(name: "Taimur", dob: "1995-02-13")
+user1 = User.new()

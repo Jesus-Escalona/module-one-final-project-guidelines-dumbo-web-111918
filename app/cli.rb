@@ -62,15 +62,6 @@ def enter_dream(user)
     end
   dream = Dream.create(content: dream_content)
   user.dreams << dream
-  puts "Hmmmm... that is very interesting."
-  sleep 1
-  puts "Let me think about that..."
-  sleep 1
-  puts "It seems like your energy needs to be realigned."
-  sleep 1
-  puts "This is very interesting..."
-  sleep 2
-  puts "VERY interesting..."
-  sleep 3
-  puts "I think you should buy Taimur a burrito tomorrow."
+  get_data(dream_content)
 end
+

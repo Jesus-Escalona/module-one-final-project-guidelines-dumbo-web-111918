@@ -3,7 +3,6 @@ class CreateDreams < ActiveRecord::Migration
     create_table :dreams do |t|
       t.text :content
       t.integer :user_id
-      t.integer :emotion_id
       t.timestamps
     end
   end

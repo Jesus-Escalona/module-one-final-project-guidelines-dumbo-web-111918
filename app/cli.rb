@@ -1,6 +1,6 @@
 def welcome
   prompt = TTY::Prompt.new
-  puts "Hello Dreamer, what would you like to do today?"
+  type(["Hello Dreamer, ","what would you like to do today?"])
   choices = %w(Login Register Leave)
   choice = prompt.select("Select an option", choices)
   case choice
@@ -15,11 +15,11 @@ end
 
 def login
   prompt = TTY::Prompt.new
-  username = prompt.ask("Enter your username") do |q|
+  username = prompt.ask(anim("Enter your username")) do |q|
       q.required true
       q.modify   :lowercase
   end
-  password = prompt.mask("Enter your password") do |q|
+  password = prompt.mask(anim("Enter your password")) do |q|
       q.required true
   end
   this_user = User.find_by(username: username)
@@ -35,19 +35,18 @@ end
 
 def register
   prompt = TTY::Prompt.new
-  username = prompt.ask("Enter your username") do |q|
+  username = prompt.ask(anim("Enter your username")) do |q|
     q.required true
   end
-  name = prompt.ask("Enter your first name") do |q|
+  name = prompt.ask(anim("Enter your first name")) do |q|
       q.required true
       q.modify   :capitalize
-      q.validate /\A\w+\Z/
     end
-  password = prompt.mask("Enter a new password") do |q|
+  password = prompt.mask(anim("Enter a new password")) do |q|
       q.required true
     end
   user = User.create(name: name, username: username, password: password)
-  puts "You're all signed up! Let's get started!"
+  anim("You're all signed up! Let's get started!")
   enter_dream(user)
 end
 
@@ -57,11 +56,11 @@ end
 
 def enter_dream(user)
   prompt = TTY::Prompt.new
-  dream_content = prompt.ask("Hello, #{user.name}, tell me, what did you dream about last night?") do |q|
+  dream_content = prompt.ask(anim("Hello, #{user.name}, tell me, what did you dream about last night?")) do |q|
       q.required true
     end
   dream = Dream.create(content: dream_content)
   user.dreams << dream
-  get_data(dream_content)
+  get_data(dream)
 end
 

@@ -3,6 +3,7 @@ class CreateInterpretations < ActiveRecord::Migration[4.2]
     create_table :interpretations do |t|
       t.string :keyword
       t.text :analysis
+      t.text :barnum
       t.timestamps
     end
   end

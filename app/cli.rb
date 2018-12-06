@@ -37,7 +37,6 @@ def login
   prompt = TTY::Prompt.new
   username = prompt.ask(anim("Enter your username")) do |q|
       q.required true
-      q.modify   :lowercase
   end
   password = prompt.mask(anim("Enter your password")) do |q|
       q.required true
@@ -97,7 +96,8 @@ def show_dreams(user)
             instance = user.dreams.find_by(content: choice)
             #Shows the complete analysis of the dream calling the method
             #dream.analysis
-            binding.pry
+            instance.analyze
+            # binding.pry
             logged_menu(user)
     end
 end
@@ -109,6 +109,5 @@ def enter_dream(user)
     end
   dream = Dream.create(content: dream_content)
   user.dreams << dream
-  get_data(dream)
+  get_data(user, dream)
 end
-

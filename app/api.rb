@@ -13,10 +13,14 @@ anim("I think I got something from that")
 
 keywords.each do |key|
   payload = {search: key[0]}
+  begin
   response = RestClient.post("http://www.mydreamvisions.com/dreamdictionary/", payload, headers={})
   html_doc = Nokogiri::HTML(response)
   analysis = html_doc.css('.symbol').text
-  binding.pry
+    rescue RestClient::ExceptionWithResponse => err
+    puts "This is embarasing, but I could not get anything from that..."
+  end
+
   #Interpretation.create(keyword: key)
 end
 

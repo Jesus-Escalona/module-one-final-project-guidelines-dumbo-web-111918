@@ -16,9 +16,15 @@ keywords.each do |key|
   begin
   response = RestClient.post("http://www.mydreamvisions.com/dreamdictionary/", payload, headers={})
   html_doc = Nokogiri::HTML(response)
-  analysis = html_doc.css('.symbol').text
+  analysis = html_doc.css('.symbol_term + p, .symbol ul *').text
+  analysis = analysis.gsub(/\n/," ")
+  analysis = analysis.gsub(/\r/," ")
+  analysis = analysis.gsub(/\"/," ")
+  binding.pry
+  analysis = analysis.include?("represent:") && analysis + "#{emotion}"
     rescue RestClient::ExceptionWithResponse => err
-    puts "This is embarasing, but I could not get anything from that..."
+    puts " #{key[0]}... not very significant."
+    sleep 1
   end
 
   #Interpretation.create(keyword: key)

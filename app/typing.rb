@@ -2,7 +2,7 @@ def anim(str)
   str.each_char do |a|
    # `afplay /System/Library/Sounds/Pop.aiff -t 0.05`
     print a
-    slt = rand(0.02..0.08)
+    slt = rand(0.02..0.04)
     sleep(slt)
   end
   print "\n"

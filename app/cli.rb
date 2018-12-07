@@ -73,7 +73,10 @@ def register
 end
 
 def leave
-    return "Goodbye!"
+  puts "Keep on dreaming..."
+  sleep 3 
+  `killall afplay`
+  return "Goodbye!"
 end
 
 def show_dreams(user)

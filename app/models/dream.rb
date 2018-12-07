@@ -4,14 +4,16 @@ class Dream < ActiveRecord::Base
   has_many :interpretations, through: :dream_interpretations
 
   def analyze
+    barnum_connector = ["It seems like...", "I found...", "I am certain..."]
+    also = ["Also: ", "It means: ", "Hmmmm... seems like: ", "Oh! Let me tell you more: "]
     self.interpretations.map do |int|
-      longer_anim("It seems like...")
+      longer_anim(barnum_connector.sample)
       sleep 1
       longer_anim(int.barnum)
       if int.analysis.length > 0
         longer_anim("Furthermore, the presence of '#{int.keyword}' in your dream is very interesting...")
         sleep 1
-        longer_anim("It means: #{int.analysis}")
+        longer_anim("#{also.sample} #{int.analysis}")
         sleep 1
       end
     end

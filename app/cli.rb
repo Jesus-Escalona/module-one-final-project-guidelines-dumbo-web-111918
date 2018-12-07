@@ -80,7 +80,7 @@ def show_dreams(user)
     prompt = TTY::Prompt.new
     a = Artii::Base.new :font => 'doom'
     puts a.asciify("Dream history")
-    dreams = user.dreams.map { |dream| dream.content }
+    dreams = user.dreams.each_with_index.map { |dream, i| "#{i+1}. #{dream.content}. Created on #{dream.created_at.strftime('%B, %d, %Y')}" }
     if dreams.empty?
         anim("Can't find any dreams here.. maybe enter a new one")
     end

@@ -10,3 +10,4 @@ gem "indico"
 gem "artii"
 gem "rest-client"
 gem "nokogiri"
+gem 'activesupport', '~> 5.0'

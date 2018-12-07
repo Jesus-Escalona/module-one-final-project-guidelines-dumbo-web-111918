@@ -4,5 +4,5 @@ puts a.asciify("Welcome to...")
 puts "🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨🌙✨"
 puts a.asciify("Dream Doctor")
 binding.pry
-
+pid = fork{ exec 'afplay', 'chants.mp3' }
 welcome

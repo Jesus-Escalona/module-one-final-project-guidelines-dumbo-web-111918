@@ -80,7 +80,7 @@ def show_dreams(user)
     prompt = TTY::Prompt.new
     a = Artii::Base.new :font => 'doom'
     puts a.asciify("Dream history")
-    dreams = user.dreams.each_with_index.map { |dream, i| "#{i+1}. #{dream.content}. Created on #{dream.created_at.strftime('%B, %d, %Y')}" }
+    dreams = user.dreams.each_with_index.map { |dream, i| {name: "#{i+1}. #{dream.content}. Created on #{dream.created_at.strftime('%B, %d, %Y')}", value: dream.id} }
     if dreams.empty?
         anim("Can't find any dreams here.. maybe enter a new one")
     end
@@ -93,13 +93,26 @@ def show_dreams(user)
         when "Go back"
             logged_menu(user)
         else
-            instance = user.dreams.find_by(content: choice)
-            #Shows the complete analysis of the dream calling the method
-            #dream.analysis
-            instance.analyze
-            # binding.pry
-            logged_menu(user)
+            instance = user.dreams.find(choice)
+            submenu(user, instance)
     end
+end
+
+def submenu(user, dream)
+  prompt = TTY::Prompt.new
+  choices = ["View Analysis", "Delete", "Go back"]
+  choice = prompt.select("Select an option", choices)
+  case choice
+      when "View Analysis"
+          dream.analyze
+          show_dreams(user)
+      when "Delete"
+          dream.destroy
+          user.reload
+          logged_menu(user)
+      else
+          show_dreams(user)
+  end
 end
 
 def enter_dream(user)
